@@ -1,2 +1,2 @@
-# shuqikecheng
-简单的IR电影检索（IMDB）
+# IRIE课程设计
+简单的电影检索（IMDB）与相关信息抽取
