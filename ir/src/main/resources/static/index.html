@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>IRIE</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+  <link href="css/jquery.decapitate.css" rel="stylesheet" type="text/css" />
+  <link href="css/styles.css" rel="stylesheet" type="text/css" />
+<!--   <link rel="stylesheet" type="text/css" href="./7款CSS3制作美化的搜索框样式代码_files/normalize.css">
+	<link rel="stylesheet" href="./7款CSS3制作美化的搜索框样式代码_files/font-awesome.min.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="./7款CSS3制作美化的搜索框样式代码_files/demo.css"> -->
+	<link rel="stylesheet" href="./7款CSS3制作美化的搜索框样式代码_files/style.css">
+</head>
+<body>
+  <div class="search d2">
+	  <form id="fm">
+		<input id="in" type="text" placeholder="搜索从这里开始...">
+	  <button  type="button" onclick="fun()"></button>
+	</form>
+  </div>
+  <div class="jumbotron">
+    <h1><a href="http://localhost/user">搜索结果</a></h1>
+  </div>
+  
+  <table id="element-table" class="table table-bordered" >
+    <thead>
+      <tr>
+		<th>IE</th>
+        <th>Title</th>
+        <th>Content</th>
+		<th>Similarity</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+ 
+
+  <img src="footer.jpg" alt="Spaceholder image to allow table to scroll off the page">
+  
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap-affix.js"></script>
+  <script src="js/jquery.decapitate.js"></script>
+  <script>
+	
+    $(document).ready(function() {
+		$('input').keydown(function(e){if(e.keyCode==13) fun();});
+    });
+ 	
+	              
+  </script>
+  <script>
+	function fun()
+	{
+		var query=document.getElementById("in").value;
+		search(query);
+	}
+	
+	  function search(query)
+	  {
+		$('table tbody').html('');
+		var uri='/query/'+query;
+		$.ajax({  
+                url: uri,  
+                type: 'GET',  
+                dataType: 'json',  
+                cache: false,  success: function(data)
+		{ 
+			$.each(data,function(index,value)
+			{
+			     str="<tr><td>"+value.property+"</td><td>"+"<a href="+value.url+" target='_blank'>"+value.title+"</td><td>"+value.article+"</td><td>"+value.sim+"</td></tr>";
+
+                             $("#element-table tbody").append(str);
+                      	});}
+            }) 
+	
+	
+	
+      $('table').decapitate();
+	  }
+  </script>
+  </body>
+</html>
